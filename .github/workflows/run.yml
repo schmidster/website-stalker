@@ -40,11 +40,11 @@ jobs:
           command: build
           args: --verbose --locked --all-features
 
-      - name: website-stalker init
+      - name: website-stalker example-config
         uses: actions-rs/cargo@v1
         with:
           command: run
-          args: --verbose --locked --all-features -- init
+          args: --verbose --locked --all-features -- example-config | sed "s/my-email-address/website-stalker-github-action-run@edjopato.de/g" > website-stalker.yaml
 
       - name: website-stalker run --all
         uses: actions-rs/cargo@v1
