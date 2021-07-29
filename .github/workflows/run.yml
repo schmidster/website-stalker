@@ -40,17 +40,12 @@ jobs:
           command: install
           args: --verbose --locked --all-features --path .
 
-      - name: Setup testing environment
-        run: |
-          ls -al
-          rm -rf * .*
-          echo after remove
-          ls -al
-
       - name: website-stalker example-config
+        working-directory: runner.temp
         run: |
           website-stalker example-config | sed "s/my-email-address/website-stalker-github-action-run@edjopato.de/g" > website-stalker.yaml
 
       - name: website-stalker run --all
+        working-directory: runner.temp
         run: |
           website-stalker run --all
