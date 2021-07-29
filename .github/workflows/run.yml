@@ -41,13 +41,9 @@ jobs:
           args: --verbose --locked --all-features
 
       - name: website-stalker example-config
-        uses: actions-rs/cargo@v1
-        with:
-          command: run
-          args: --verbose --locked --all-features -- example-config | sed "s/my-email-address/website-stalker-github-action-run@edjopato.de/g" > website-stalker.yaml
+        run: |
+          target/debug/website-stalker example-config | sed "s/my-email-address/website-stalker-github-action-run@edjopato.de/g" > website-stalker.yaml
 
       - name: website-stalker run --all
-        uses: actions-rs/cargo@v1
-        with:
-          command: run
-          args: --verbose --locked --all-features -- run --all
+        run: |
+          target/debug/website-stalker run --all
