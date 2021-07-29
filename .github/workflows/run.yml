@@ -44,7 +44,7 @@ jobs:
         run: |
           cp target/debug/website-stalker /usr/local/bin
           ls -al
-          rm -rf *
+          rm -rf * .*
           ls -al
 
       - name: website-stalker example-config
