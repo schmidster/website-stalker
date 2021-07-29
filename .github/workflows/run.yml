@@ -40,10 +40,17 @@ jobs:
           command: build
           args: --verbose --locked --all-features
 
+      - name: Setup testing environment
+        run: |
+          cp target/debug/website-stalker /usr/local/bin
+          ls -al
+          rm -rf *
+          ls -al
+
       - name: website-stalker example-config
         run: |
-          target/debug/website-stalker example-config | sed "s/my-email-address/website-stalker-github-action-run@edjopato.de/g" > website-stalker.yaml
+          website-stalker example-config | sed "s/my-email-address/website-stalker-github-action-run@edjopato.de/g" > website-stalker.yaml
 
       - name: website-stalker run --all
         run: |
-          target/debug/website-stalker run --all
+          website-stalker run --all
