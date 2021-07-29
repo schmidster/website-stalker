@@ -34,17 +34,17 @@ jobs:
           profile: minimal
           toolchain: ${{ matrix.toolchain }}
 
-      - name: Build
+      - name: Install
         uses: actions-rs/cargo@v1
         with:
-          command: build
-          args: --verbose --locked --all-features
+          command: install
+          args: --verbose --locked --all-features --path .
 
       - name: Setup testing environment
         run: |
-          cp target/debug/website-stalker /usr/local/bin
           ls -al
           rm -rf * .*
+          echo after remove
           ls -al
 
       - name: website-stalker example-config
