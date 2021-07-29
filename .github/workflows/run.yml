@@ -1,0 +1,53 @@
+name: Run with example config
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  run:
+    name: Run
+    runs-on: ${{ matrix.os }}
+    continue-on-error: ${{ matrix.toolchain != 'stable' }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            toolchain: stable
+          - os: macOS-latest
+            toolchain: stable
+          - os: windows-latest
+            toolchain: stable
+
+          - os: ubuntu-latest
+            toolchain: beta
+          - os: ubuntu-latest
+            toolchain: nightly
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          override: true
+          profile: minimal
+          toolchain: ${{ matrix.toolchain }}
+
+      - name: Build
+        uses: actions-rs/cargo@v1
+        with:
+          command: build
+          args: --verbose --locked --all-features
+
+      - name: website-stalker init
+        uses: actions-rs/cargo@v1
+        with:
+          command: run
+          args: --verbose --locked --all-features -- init
+
+      - name: website-stalker run --all
+        uses: actions-rs/cargo@v1
+        with:
+          command: run
+          args: --verbose --locked --all-features -- run --all
