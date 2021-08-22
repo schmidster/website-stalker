@@ -6,7 +6,7 @@ on:
 
 jobs:
   run:
-    name: Run
+    name: Run ${{ matrix.toolchain }} ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     continue-on-error: ${{ matrix.toolchain != 'stable' }}
     strategy:
@@ -15,20 +15,20 @@ jobs:
         include:
           - os: ubuntu-latest
             toolchain: stable
-            executable: website-stalker
+            executable: ./website-stalker
           - os: macOS-latest
             toolchain: stable
-            executable: website-stalker
+            executable: ./website-stalker
           - os: windows-latest
             toolchain: stable
-            executable: website-stalker.exe
+            executable: .\website-stalker.exe
 
           - os: ubuntu-latest
             toolchain: beta
-            executable: website-stalker
+            executable: ./website-stalker
           - os: ubuntu-latest
             toolchain: nightly
-            executable: website-stalker
+            executable: ./website-stalker
     steps:
       - name: Setup Rust
         uses: actions-rs/toolchain@v1
@@ -45,7 +45,7 @@ jobs:
           command: install
           args: --verbose --locked --all-features --path .
         env:
-          CARGO_INSTALL_ROOT: ${{ runner.tool_cache }}
+          CARGO_INSTALL_ROOT: ${{ runner.temp }}
 
       - name: website-stalker example-config
         working-directory: runner.temp
