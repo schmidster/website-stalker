@@ -47,6 +47,12 @@ jobs:
         env:
           CARGO_INSTALL_ROOT: ${{ runner.temp }}
 
+      - name: inspect
+        working-directory: runner.temp
+        run: |
+          pwd
+          ls -alR
+
       - name: website-stalker example-config
         working-directory: runner.temp
         run: |
