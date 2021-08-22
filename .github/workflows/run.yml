@@ -15,15 +15,20 @@ jobs:
         include:
           - os: ubuntu-latest
             toolchain: stable
+            executable: website-stalker
           - os: macOS-latest
             toolchain: stable
+            executable: website-stalker
           - os: windows-latest
             toolchain: stable
+            executable: website-stalker.exe
 
           - os: ubuntu-latest
             toolchain: beta
+            executable: website-stalker
           - os: ubuntu-latest
             toolchain: nightly
+            executable: website-stalker
     steps:
       - uses: actions/checkout@v2
 
@@ -39,13 +44,15 @@ jobs:
         with:
           command: install
           args: --verbose --locked --all-features --path .
+        env:
+          CARGO_INSTALL_ROOT: ${{ runner.tool_cache }}
 
       - name: website-stalker example-config
         working-directory: runner.temp
         run: |
-          website-stalker example-config | sed "s/my-email-address/website-stalker-github-action-run@edjopato.de/g" > website-stalker.yaml
+          ${{ matrix.executable }} example-config | sed "s/my-email-address/website-stalker-github-action-run@edjopato.de/g" > website-stalker.yaml
 
       - name: website-stalker run --all
         working-directory: runner.temp
         run: |
-          website-stalker run --all
+          ${{ matrix.executable }} run --all
