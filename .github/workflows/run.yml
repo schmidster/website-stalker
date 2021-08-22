@@ -30,14 +30,14 @@ jobs:
             toolchain: nightly
             executable: website-stalker
     steps:
-      - uses: actions/checkout@v2
-
       - name: Setup Rust
         uses: actions-rs/toolchain@v1
         with:
           override: true
           profile: minimal
           toolchain: ${{ matrix.toolchain }}
+
+      - uses: actions/checkout@v2
 
       - name: Install
         uses: actions-rs/cargo@v1
