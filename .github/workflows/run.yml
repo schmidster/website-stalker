@@ -15,20 +15,20 @@ jobs:
         include:
           - os: ubuntu-latest
             toolchain: stable
-            executable: ./website-stalker
+            executable: ./bin/website-stalker
           - os: macOS-latest
             toolchain: stable
-            executable: ./website-stalker
+            executable: ./bin/website-stalker
           - os: windows-latest
             toolchain: stable
-            executable: .\website-stalker.exe
+            executable: .\bin\website-stalker.exe
 
           - os: ubuntu-latest
             toolchain: beta
-            executable: ./website-stalker
+            executable: ./bin/website-stalker
           - os: ubuntu-latest
             toolchain: nightly
-            executable: ./website-stalker
+            executable: ./bin/website-stalker
     steps:
       - name: Setup Rust
         uses: actions-rs/toolchain@v1
