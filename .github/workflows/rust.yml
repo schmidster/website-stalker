@@ -59,9 +59,8 @@ jobs:
         include:
           - os: windows-latest
             triple: x86_64-pc-windows-msvc
-          # https://github.com/briansmith/ring/issues/1167
-          # - os: windows-latest
-          #   triple: aarch64-pc-windows-msvc
+          - os: windows-latest
+            triple: aarch64-pc-windows-msvc
     steps:
       - name: Setup Rust
         uses: actions-rs/toolchain@v1
